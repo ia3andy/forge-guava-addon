@@ -5,6 +5,8 @@
  */
 package org.ia3andy.forge.addon.java.guava.config;
 
+import org.jboss.forge.addon.dependencies.Coordinate;
+
 /**
  *
  * @author ia3andy
@@ -14,4 +16,7 @@ public interface GuavaConfiguration {
   String getGuavaVersionProperty();
   String getGuavaVersion();
 
+  Coordinate getGuavaCoordinate();
+
+  void setGuavaVersion(String guavaVersion);
 }

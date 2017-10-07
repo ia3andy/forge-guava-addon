@@ -48,9 +48,5 @@ public abstract class AbstractGuavaCommand extends AbstractProjectCommand {
         return projectFactory;
     }
 
-    protected Result success() {
-        return Results
-                .success("Command '" + name() + "' successfully executed!");
-    }
 
 }
