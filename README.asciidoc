@@ -1,6 +1,6 @@
 == JBoss Forge Guava Addon
 
-This forge addon enables a fast way to install Guava and generate checkNotNull preconditions on constructor/method parameters.
+This forge addon enables a fast way to install Guava and to generate checkNotNull preconditions on constructor/method parameters.
 
 
 === Dependencies: None
@@ -11,7 +11,7 @@ This forge addon enables a fast way to install Guava and generate checkNotNull p
 Use install addon from git command:
 
 ----
-addon-install-from-git --url https://github.com/ia3andy/guava-addon.git
+addon-install-from-git --url https://github.com/ia3andy/forge-guava-addon.git
 ----
 
 
@@ -19,12 +19,12 @@ addon-install-from-git --url https://github.com/ia3andy/guava-addon.git
 
 * *Guava: Add Dependency* command:
 ====
-It will install a maven dependency to use Guava.
+It will install maven dependency to use Guava.
 ====
 
 * *Swagger: Add checkNotNull* command:
 ====
-It will generate checkNotNull preconditions on method params for the given class.
+It will generate checkNotNull preconditions on methods params for the given class.
 ====
 
 
@@ -33,3 +33,7 @@ It will generate checkNotNull preconditions on method params for the given class
 * Install the latest version of Guava.
 * Generate and Add checkNotNull preconditions on constructor/method params for the given class.
 
+=== Known issues
+
+* The 'Add checkNotNull' command generate checkNotNull preconditions before super() call in constructor.
+* The 'Add checkNotNull' command only process public methods.
