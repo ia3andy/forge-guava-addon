@@ -28,7 +28,7 @@ public class GuavaAddDependencyCommandTest extends AbstractGuavaCommandTest {
 			controller.initialize();
 			// Checks the command metadata
 			UICommandMetadata metadata = controller.getMetadata();
-			assertEquals(metadata.getType(), GuavaAddDependencyCommand.class);
+			assertEquals(GuavaAddDependencyCommand.class, metadata.getType());
 			assertEquals("Guava: Add Dependency", metadata.getName());
 			assertEquals("Guava", metadata.getCategory().getName());
 			assertNull(metadata.getCategory().getSubCategory());
@@ -44,7 +44,8 @@ public class GuavaAddDependencyCommandTest extends AbstractGuavaCommandTest {
 		try (CommandController controller = testHarness.createCommandController(GuavaAddDependencyCommand.class, cleanProject.getRoot())) {
 			Assert.assertFalse(cleanProject.hasFacet(GuavaFacet.class));
 			controller.initialize();
-			controller.execute();
+			final Result result = controller.execute();
+			Assert.assertThat(result, not(instanceOf(Failed.class)));
 			final Project refreshedProject = refreshedProject(cleanProject);
 			Assert.assertTrue(refreshedProject.hasFacet(GuavaFacet.class));
 		}
@@ -69,7 +70,8 @@ public class GuavaAddDependencyCommandTest extends AbstractGuavaCommandTest {
 		Assert.assertEquals("18.0", facetAsOptional.get().getGuavaVersion());
 		try (CommandController controller = testHarness.createCommandController(GuavaAddDependencyCommand.class, guavaProject.getRoot())) {
 			controller.initialize();
-			controller.execute();
+			final Result result = controller.execute();
+			Assert.assertThat(result, not(instanceOf(Failed.class)));
 			final Project refreshedProject = refreshedProject(guavaProject);
 			final Optional<GuavaFacet> facetAfterInstallAsOptional = refreshedProject.getFacetAsOptional(GuavaFacet.class);
 			Assert.assertTrue(facetAfterInstallAsOptional.isPresent());
@@ -84,7 +86,8 @@ public class GuavaAddDependencyCommandTest extends AbstractGuavaCommandTest {
 		Assert.assertFalse(facetAsOptional.isPresent());
 		try (CommandController controller = testHarness.createCommandController(GuavaAddDependencyCommand.class, guavaNoPropProject.getRoot())) {
 			controller.initialize();
-			controller.execute();
+			final Result result = controller.execute();
+			Assert.assertThat(result, not(instanceOf(Failed.class)));
 			final Project refreshedProject = refreshedProject(guavaNoPropProject);
 			Assert.assertTrue(refreshedProject.hasFacet(GuavaFacet.class));
 		}

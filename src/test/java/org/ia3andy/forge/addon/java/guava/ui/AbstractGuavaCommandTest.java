@@ -7,6 +7,9 @@ import java.io.IOException;
 import org.ia3andy.forge.addon.java.guava.config.GuavaConfiguration;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.forge.addon.facets.FacetFactory;
+import org.jboss.forge.addon.parser.java.facets.JavaSourceFacet;
+import org.jboss.forge.addon.parser.java.resources.JavaResource;
 import org.jboss.forge.addon.projects.Project;
 import org.jboss.forge.addon.projects.ProjectFactory;
 import org.jboss.forge.addon.resource.FileResource;
@@ -16,6 +19,8 @@ import org.jboss.forge.arquillian.AddonDependencies;
 import org.jboss.forge.arquillian.AddonDependency;
 import org.jboss.forge.arquillian.archive.AddonArchive;
 import org.jboss.forge.furnace.repositories.AddonDependencyEntry;
+import org.jboss.forge.roaster.Roaster;
+import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.junit.After;
@@ -33,8 +38,13 @@ public abstract class AbstractGuavaCommandTest {
     protected static final String GUAVA_POM = "guava-pom.xml";
     protected static final String GUAVA_NO_PROP_POM = "guava-no-prop-pom.xml";
 
+    protected static final String TEST_SERVICE_JAVA = "TestService.java";
+
     @Inject
     protected ProjectFactory projectFactory;
+
+    @Inject
+    protected FacetFactory facetFactory;
 
     @Inject
     protected ShellTest shellTest;
@@ -63,6 +73,7 @@ public abstract class AbstractGuavaCommandTest {
                 .add(newFileAsset(CLEAN_POM), getAssetName(CLEAN_POM))
                 .add(newFileAsset(GUAVA_POM), getAssetName(GUAVA_POM))
                 .add(newFileAsset(GUAVA_NO_PROP_POM), getAssetName(GUAVA_NO_PROP_POM))
+                .add(newFileAsset(TEST_SERVICE_JAVA), getAssetName(TEST_SERVICE_JAVA))
                 .addAsAddonDependencies(
                         AddonDependencyEntry.create("org.jboss.forge.furnace.container:cdi"),
                         AddonDependencyEntry.create("org.jboss.forge.addon:projects"),
@@ -84,13 +95,19 @@ public abstract class AbstractGuavaCommandTest {
         shellTest.close();
     }
 
-    protected Project createProjectWithPom(final String pomFile){
+    protected Project createProjectWithPom(final String pomFileName){
         final Project project = projectFactory.createTempProject();
+        facetFactory.install(project, JavaSourceFacet.class);
         final FileResource<?> pom = (FileResource<?>) project.getRoot().getChild("pom.xml");
         if (!pom.getContents().contains("build")) {
-            pom.setContents(getClass().getResourceAsStream(pomFile));
+            pom.setContents(getClass().getResourceAsStream(pomFileName));
         }
         return refreshedProject(project);
+    }
+
+    protected JavaResource saveJavaFileInProject(final Project project, final String javaFileName){
+        final JavaClassSource source = Roaster.parse(JavaClassSource.class, getClass().getResourceAsStream(javaFileName));
+        return project.getFacet(JavaSourceFacet.class).saveJavaSource(source);
     }
 
     protected Project refreshedProject(final Project project){
