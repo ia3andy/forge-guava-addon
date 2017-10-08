@@ -9,6 +9,7 @@ import org.jboss.forge.addon.parser.java.beans.ProjectOperations;
 import org.jboss.forge.addon.parser.java.facets.JavaSourceFacet;
 import org.jboss.forge.addon.parser.java.resources.JavaResource;
 import org.jboss.forge.addon.projects.Project;
+import org.jboss.forge.addon.projects.ProjectFactory;
 import org.jboss.forge.addon.ui.context.UIBuilder;
 import org.jboss.forge.addon.ui.context.UIContext;
 import org.jboss.forge.addon.ui.context.UIExecutionContext;
@@ -30,7 +31,10 @@ public final class GuavaCheckNotNullCommand extends AbstractGuavaCommand {
 	private UISelectOne<JavaResource> targetClass;
 
 	@Inject
-	public GuavaCheckNotNullCommand(final ProjectOperations projectOperations, final CheckNotNullHelper checkNotNullHelper) {
+	public GuavaCheckNotNullCommand(final ProjectFactory projectFactory,
+									final ProjectOperations projectOperations,
+									final CheckNotNullHelper checkNotNullHelper) {
+		super(projectFactory);
 		this.projectOperations = projectOperations;
 		this.checkNotNullHelper = checkNotNullHelper;
 	}
