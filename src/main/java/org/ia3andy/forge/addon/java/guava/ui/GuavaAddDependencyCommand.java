@@ -61,8 +61,7 @@ public final class GuavaAddDependencyCommand extends AbstractGuavaCommand {
 		final List<String> latestGuavaVersions = guavaVersionsFinder
 				.getLatestGuavaReleasedVersions();
 		InputComponentFactory inputFactory = builder.getInputComponentFactory();
-		final String defaultValue = Iterables.getFirst(latestGuavaVersions,
-				configuration.getSelectedGuavaVersion());
+		final String defaultValue = Iterables.getFirst(latestGuavaVersions, configuration.getSelectedGuavaVersion());
 		guavaVersions = inputFactory
 				.createSelectOne("guavaVersion", String.class)
 				.setLabel("Guava Version")
@@ -83,7 +82,8 @@ public final class GuavaAddDependencyCommand extends AbstractGuavaCommand {
 			Optional<GuavaFacet> maybeFacet = project
 					.getFacetAsOptional(GuavaFacet.class);
 			if (maybeFacet.isPresent()) {
-				return Results.success("Guava > Add Dependency: Property " + maybeFacet.get().getGuavaVersion()	+ " is already in project...");
+				final String guavaVersion = maybeFacet.get().getGuavaVersion();
+				return Results.success("Guava > Add Dependency: Property " + guavaVersion + " is already in project...");
 			}
 			facetFactory.install(project, GuavaFacet.class);
 			return Results.success("Guava > Add Dependency: Command successfully executed!");

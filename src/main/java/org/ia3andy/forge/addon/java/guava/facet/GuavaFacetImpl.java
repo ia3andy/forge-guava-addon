@@ -51,8 +51,7 @@ public final class GuavaFacetImpl extends AbstractFacet<Project> implements Guav
 
     private void addGuavaDependency() {
         final DependencyFacet dependencies = getDependencyFacet();
-        final Dependency dependency = DependencyBuilder.create()
-                .setCoordinate(guavaConfiguration.getGuavaCoordinateToUse());
+        final Dependency dependency = DependencyBuilder.create().setCoordinate(guavaConfiguration.getGuavaCoordinateToUse());
         dependencies.addDirectDependency(dependency);
     }
 

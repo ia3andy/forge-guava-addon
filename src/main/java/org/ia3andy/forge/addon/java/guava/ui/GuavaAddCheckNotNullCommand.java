@@ -64,8 +64,7 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
                 .getInputComponentFactory();
         final UIContext uiContext = builder.getUIContext();
         final Project project = getSelectedProject(uiContext);
-        final UISelection<Object> initialSelection = uiContext
-                .getInitialSelection();
+        final UISelection<Object> initialSelection = uiContext.getInitialSelection();
         targetClass = inputFactory
                 .createSelectOne("targetClass", JavaResource.class)
                 .setLabel("Target class")
@@ -89,8 +88,7 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
                     .filter(VisibilityScoped::isPublic)
                     .filter(m -> checkHasNotMethodCheckNotNull(context, m))
                     .forEach(checkNotNullHelper::addCheckNotNullToMethod);
-            getSelectedProject(context).getFacet(JavaSourceFacet.class)
-                    .saveJavaSource(targetClass);
+            getSelectedProject(context).getFacet(JavaSourceFacet.class).saveJavaSource(targetClass);
             return Results.success("Guava > Add checkNotNull: Command successfully executed!");
         } catch (final RuntimeException e) {
             return Results.fail("Guava > Add checkNotNull: Command execution failed!", e);

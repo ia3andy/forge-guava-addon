@@ -22,8 +22,7 @@ public class CheckNotNullHelperImpl implements CheckNotNullHelper {
     @Override
     public void addCheckNotNullStaticImportToClass(final JavaClassSource javaClassSource) {
         checkNotNull(javaClassSource, "javaClassSource must not be null.");
-        javaClassSource.addImport(CHECK_NOT_NULL_IMPORT)
-                .setStatic(true);
+        javaClassSource.addImport(CHECK_NOT_NULL_IMPORT).setStatic(true);
     }
 
     @Override
@@ -39,9 +38,7 @@ public class CheckNotNullHelperImpl implements CheckNotNullHelper {
         final StringBuilder bodyBuilder = new StringBuilder();
         methodSource.getParameters().stream()
                 .filter(p -> !p.getType().isPrimitive())
-                .forEach(
-                        p -> bodyBuilder
-                                .append(getCheckNotNullBodyLineForParam(p)));
+                .forEach(p -> bodyBuilder.append(getCheckNotNullBodyLineForParam(p)));
         bodyBuilder.append(body);
         methodSource.setBody(bodyBuilder.toString());
     }
