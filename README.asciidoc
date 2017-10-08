@@ -24,7 +24,7 @@ It will install maven dependency to use Guava.
 
 * *Guava: Add checkNotNull* command:
 ====
-It will generate checkNotNull preconditions on methods params for the given class.
+It will generate checkNotNull preconditions on constructor/methods params for the given class.
 ====
 
 
