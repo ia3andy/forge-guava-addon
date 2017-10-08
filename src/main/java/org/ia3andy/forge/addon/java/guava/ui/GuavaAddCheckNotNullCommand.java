@@ -39,9 +39,9 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
 			final ProjectOperations projectOperations,
 			final CheckNotNullHelper checkNotNullHelper) {
 		super(projectFactory);
-		checkNotNull(projectFactory, "projectFactory must not be null;");
-		checkNotNull(projectOperations, "projectOperations must not be null;");
-		checkNotNull(checkNotNullHelper, "checkNotNullHelper must not be null;");
+		checkNotNull(projectFactory, "projectFactory must not be null.");
+		checkNotNull(projectOperations, "projectOperations must not be null.");
+		checkNotNull(checkNotNullHelper, "checkNotNullHelper must not be null.");
 		this.projectOperations = projectOperations;
 		this.checkNotNullHelper = checkNotNullHelper;
 	}
@@ -58,7 +58,7 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
 
 	@Override
 	public void initializeUI(UIBuilder builder) throws Exception {
-		checkNotNull(builder, "builder must not be null;");
+		checkNotNull(builder, "builder must not be null.");
 		final InputComponentFactory inputFactory = builder
 				.getInputComponentFactory();
 		final UIContext uiContext = builder.getUIContext();
@@ -79,7 +79,7 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
 
 	@Override
 	public Result execute(UIExecutionContext context) throws Exception {
-		checkNotNull(context, "context must not be null;");
+		checkNotNull(context, "context must not be null.");
 		try {
 			final JavaResource javaResource = targetClass.getValue();
 			final JavaClassSource targetClass = javaResource.getJavaType();
@@ -90,11 +90,9 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
 					.forEach(checkNotNullHelper::addCheckNotNullToMethod);
 			getSelectedProject(context).getFacet(JavaSourceFacet.class)
 					.saveJavaSource(targetClass);
-			return Results
-					.success("Guava > Add checkNotNull: Command successfully executed!");
+			return Results.success("Guava > Add checkNotNull: Command successfully executed!");
 		} catch (final RuntimeException e) {
-			return Results.fail(
-					"Guava > Add checkNotNull: Command execution failed!", e);
+			return Results.fail("Guava > Add checkNotNull: Command execution failed!", e);
 		}
 	}
 
@@ -102,8 +100,7 @@ public final class GuavaAddCheckNotNullCommand extends AbstractGuavaCommand {
 			final UIExecutionContext context,
 			final MethodSource<JavaClassSource> methodSource) {
 		if (checkNotNullHelper.hasMethodCheckNotNull(methodSource)) {
-			context.getPrompt().prompt(
-					methodSource.getName() + " already has some checkNotNull");
+			context.getPrompt().prompt(methodSource.getName() + " already has some checkNotNull");
 			return false;
 		}
 		return true;

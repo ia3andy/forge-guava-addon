@@ -23,7 +23,7 @@ public final class GuavaFacetImpl extends AbstractFacet<Project>
 
 	@Inject
 	public GuavaFacetImpl(final GuavaConfiguration guavaConfiguration) {
-		checkNotNull(guavaConfiguration, "guavaConfiguration must not be null;");
+		checkNotNull(guavaConfiguration, "guavaConfiguration must not be null.");
 		this.guavaConfiguration = guavaConfiguration;
 	}
 

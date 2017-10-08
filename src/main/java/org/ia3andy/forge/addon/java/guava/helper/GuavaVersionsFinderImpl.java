@@ -28,8 +28,8 @@ public final class GuavaVersionsFinderImpl implements GuavaVersionsFinder {
 	@Inject
 	public GuavaVersionsFinderImpl(final DependencyResolver resolver,
 			final GuavaConfiguration configuration) {
-		checkNotNull(resolver, "resolver must not be null;");
-		checkNotNull(configuration, "configuration must not be null;");
+		checkNotNull(resolver, "resolver must not be null.");
+		checkNotNull(configuration, "configuration must not be null.");
 		this.resolver = resolver;
 		this.configuration = configuration;
 	}

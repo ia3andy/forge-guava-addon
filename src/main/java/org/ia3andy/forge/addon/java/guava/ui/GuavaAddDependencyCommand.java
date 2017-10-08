@@ -36,10 +36,10 @@ public final class GuavaAddDependencyCommand extends AbstractGuavaCommand {
 			final GuavaConfiguration configuration,
 			final GuavaVersionsFinder guavaVersionsFinder) {
 		super(projectFactory);
-		checkNotNull(projectFactory, "projectFactory must not be null;");
-		checkNotNull(facetFactory, "facetFactory must not be null;");
-		checkNotNull(configuration, "configuration must not be null;");
-		checkNotNull(guavaVersionsFinder,"guavaVersionsFinder must not be null;");
+		checkNotNull(projectFactory, "projectFactory must not be null.");
+		checkNotNull(facetFactory, "facetFactory must not be null.");
+		checkNotNull(configuration, "configuration must not be null.");
+		checkNotNull(guavaVersionsFinder,"guavaVersionsFinder must not be null.");
 		this.facetFactory = facetFactory;
 		this.configuration = configuration;
 		this.guavaVersionsFinder = guavaVersionsFinder;
@@ -57,7 +57,7 @@ public final class GuavaAddDependencyCommand extends AbstractGuavaCommand {
 
 	@Override
 	public void initializeUI(UIBuilder builder) throws Exception {
-		checkNotNull(builder, "builder must not be null;");
+		checkNotNull(builder, "builder must not be null.");
 		final List<String> latestGuavaVersions = guavaVersionsFinder
 				.getLatestGuavaReleasedVersions();
 		InputComponentFactory inputFactory = builder.getInputComponentFactory();
@@ -76,23 +76,19 @@ public final class GuavaAddDependencyCommand extends AbstractGuavaCommand {
 
 	@Override
 	public Result execute(UIExecutionContext context) throws Exception {
-		checkNotNull(context, "context must not be null;");
+		checkNotNull(context, "context must not be null.");
 		try {
 			configuration.setSelectedGuavaVersion(guavaVersions.getValue());
 			Project project = getSelectedProject(context);
 			Optional<GuavaFacet> maybeFacet = project
 					.getFacetAsOptional(GuavaFacet.class);
 			if (maybeFacet.isPresent()) {
-				return Results.success("Guava > Add Dependency: Property "
-						+ configuration.getGuavaVersionProperty()
-						+ " is already in project...");
+				return Results.success("Guava > Add Dependency: Property " + maybeFacet.get().getGuavaVersion()	+ " is already in project...");
 			}
 			facetFactory.install(project, GuavaFacet.class);
-			return Results
-					.success("Guava > Add Dependency: Command successfully executed!");
+			return Results.success("Guava > Add Dependency: Command successfully executed!");
 		} catch (final RuntimeException e) {
-			return Results.fail(
-					"Guava > Add Dependency: Command execution failed!", e);
+			return Results.fail("Guava > Add Dependency: Command execution failed!", e);
 		}
 	}
 
