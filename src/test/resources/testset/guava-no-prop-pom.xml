@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.ia3andy.forge.addon</groupId>
-    <artifactId>guava-addon-test</artifactId>
+    <artifactId>guava-addon-test-with-dep-no-prop</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
@@ -11,9 +11,14 @@
             <artifactId>jsr250-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>guava-addon-test</finalName>
+        <finalName>guava-addon-test-with-dep-no-prop</finalName>
     </build>
 </project>

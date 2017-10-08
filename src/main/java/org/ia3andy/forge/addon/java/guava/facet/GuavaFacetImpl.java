@@ -1,11 +1,17 @@
 package org.ia3andy.forge.addon.java.guava.facet;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import javax.inject.Inject;
+import java.util.Optional;
 import java.util.Properties;
 
+import com.google.common.base.Strings;
 import org.apache.maven.model.Model;
 import org.ia3andy.forge.addon.java.guava.config.GuavaConfiguration;
+import org.jboss.forge.addon.dependencies.Coordinate;
 import org.jboss.forge.addon.dependencies.Dependency;
+import org.jboss.forge.addon.dependencies.builder.CoordinateBuilder;
 import org.jboss.forge.addon.dependencies.builder.DependencyBuilder;
 import org.jboss.forge.addon.facets.AbstractFacet;
 import org.jboss.forge.addon.maven.projects.MavenFacet;
@@ -33,18 +39,22 @@ public final class GuavaFacetImpl extends AbstractFacet<Project> implements Guav
         return hasGuavaVersionProperty();
     }
 
-    private boolean hasGuavaVersionProperty() {
+    @Override
+    public String getGuavaVersion() {
         final MavenFacet mavenFacet = getMavenFacet();
         final Model pom = mavenFacet.getModel();
-        final String version = pom.getProperties().getProperty(guavaConfiguration.getGuavaVersionProperty());
-        return version != null && version.equals(guavaConfiguration.getGuavaVersion());
+        return pom.getProperties().getProperty(guavaConfiguration.getGuavaVersionProperty());
+    }
+
+    private boolean hasGuavaVersionProperty() {
+        return !isNullOrEmpty(getGuavaVersion());
     }
 
     private void addGuavaDependency() {
         final DependencyFacet dependencies = getDependencyFacet();
         final Dependency dependency = DependencyBuilder.create()
                 .setCoordinate(guavaConfiguration.getGuavaCoordinate());
-        dependencies.addManagedDependency(dependency);
+        dependencies.addDirectDependency(dependency);
     }
 
     private void addGuavaVersionProperty() {
@@ -62,5 +72,6 @@ public final class GuavaFacetImpl extends AbstractFacet<Project> implements Guav
     private DependencyFacet getDependencyFacet() {
         return getFaceted().getFacet(DependencyFacet.class);
     }
+
 
 }
