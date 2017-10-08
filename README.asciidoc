@@ -22,7 +22,7 @@ addon-install-from-git --url https://github.com/ia3andy/forge-guava-addon.git
 It will install maven dependency to use Guava.
 ====
 
-* *Swagger: Add checkNotNull* command:
+* *Guava: Add checkNotNull* command:
 ====
 It will generate checkNotNull preconditions on methods params for the given class.
 ====
