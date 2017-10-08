@@ -8,15 +8,34 @@ package org.ia3andy.forge.addon.java.guava.config;
 import org.jboss.forge.addon.dependencies.Coordinate;
 
 /**
+ * Configuration for Guava addon
  *
  * @author ia3andy
  */
 public interface GuavaConfiguration {
 
+  /**
+   * @return the Guava version property to use
+   */
   String getGuavaVersionProperty();
-  String getGuavaVersion();
 
-  Coordinate getGuavaCoordinate();
+  /**
+   * @return the selected Guava version to use
+   */
+  String getSelectedGuavaVersion();
 
-  void setGuavaVersion(String guavaVersion);
+  /**
+   * @return The Guava base {@link Coordinate} (groupId, artifactId)
+   */
+  Coordinate getBaseGuavaCoordinate();
+
+  /**
+   * @return The Guava {@link Coordinate} to use
+   */
+  Coordinate getGuavaCoordinateToUse();
+
+  /**
+   * @param guavaVersion select the Guava version to use
+   */
+  void setSelectedGuavaVersion(String guavaVersion);
 }

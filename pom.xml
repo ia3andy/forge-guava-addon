@@ -7,6 +7,7 @@
 
   <properties>
     <version.furnace>2.26.2.Final</version.furnace>
+    <guava.version>23.0</guava.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,6 +74,11 @@
       <artifactId>ui-test-harness</artifactId>
       <classifier>forge-addon</classifier>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
   <dependencyManagement>

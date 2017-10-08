@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import java.util.concurrent.TimeUnit;
 
-import org.ia3andy.forge.addon.java.guava.facet.GuavaFacet;
 import org.ia3andy.forge.addon.java.guava.helper.CheckNotNullHelper;
 import org.jboss.forge.addon.parser.java.resources.JavaResource;
 import org.jboss.forge.addon.projects.Project;
@@ -24,7 +23,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class GuavaCheckNotNullCommandTest extends AbstractGuavaCommandTest {
+public class GuavaAddCheckNotNullCommandTest extends AbstractGuavaCommandTest {
 
     @Inject
     private CheckNotNullHelper checkNotNullHelper;
@@ -33,11 +32,11 @@ public class GuavaCheckNotNullCommandTest extends AbstractGuavaCommandTest {
     public void checkCommandMetadata() throws Exception {
         final Project guavaProject = createProjectWithPom(GUAVA_POM);
         final JavaResource javaResource = saveJavaFileInProject(guavaProject, TEST_SERVICE_JAVA);
-        try (CommandController controller = testHarness.createCommandController(GuavaCheckNotNullCommand.class, javaResource)) {
+        try (CommandController controller = testHarness.createCommandController(GuavaAddCheckNotNullCommand.class, javaResource)) {
             controller.initialize();
             // Checks the command metadata
             UICommandMetadata metadata = controller.getMetadata();
-            assertEquals(GuavaCheckNotNullCommand.class, metadata.getType());
+            assertEquals(GuavaAddCheckNotNullCommand.class, metadata.getType());
             assertEquals("Guava: Add checkNotNull", metadata.getName());
             assertEquals("Guava", metadata.getCategory().getName());
             assertNull(metadata.getCategory().getSubCategory());
@@ -51,7 +50,7 @@ public class GuavaCheckNotNullCommandTest extends AbstractGuavaCommandTest {
     public void shouldAddCheckNotNullToMethodsCorrectly() throws Exception {
         final Project guavaProject = createProjectWithPom(GUAVA_POM);
         final JavaResource javaResource = saveJavaFileInProject(guavaProject, TEST_SERVICE_JAVA);
-        try (CommandController controller = testHarness.createCommandController(GuavaCheckNotNullCommand.class, javaResource)) {
+        try (CommandController controller = testHarness.createCommandController(GuavaAddCheckNotNullCommand.class, javaResource)) {
             controller.initialize();
             final Result result = controller.execute();
             Assert.assertThat(result, not(instanceOf(Failed.class)));
@@ -64,12 +63,11 @@ public class GuavaCheckNotNullCommandTest extends AbstractGuavaCommandTest {
     }
 
     @Test
-    @Ignore
     public void shouldAddCheckNotNullToMethodsCorrectlyWithShell() throws Exception {
         final Project guavaProject = createProjectWithPom(GUAVA_POM);
         final JavaResource javaResource = saveJavaFileInProject(guavaProject, TEST_SERVICE_JAVA);
         shellTest.getShell().setCurrentResource(javaResource);
-        final Result result = shellTest.execute("guava-check-not-null", 15, TimeUnit.SECONDS);
+        final Result result = shellTest.execute("guava-add-checknotnull", 15, TimeUnit.SECONDS);
         Assert.assertThat(result, not(instanceOf(Failed.class)));
         final JavaClassSource targetClass = javaResource.getJavaType();
         final long count = targetClass.getMethods().stream()
