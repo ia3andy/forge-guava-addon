@@ -14,28 +14,28 @@ import org.jboss.forge.addon.dependencies.Coordinate;
  */
 public interface GuavaConfiguration {
 
-  /**
-   * @return the Guava version property to use
-   */
-  String getGuavaVersionProperty();
+    /**
+     * @return the Guava version property to use
+     */
+    String getGuavaVersionProperty();
 
-  /**
-   * @return the selected Guava version to use
-   */
-  String getSelectedGuavaVersion();
+    /**
+     * @return the selected Guava version to use
+     */
+    String getSelectedGuavaVersion();
 
-  /**
-   * @return The Guava base {@link Coordinate} (groupId, artifactId)
-   */
-  Coordinate getBaseGuavaCoordinate();
+    /**
+     * @return The Guava base {@link Coordinate} (groupId, artifactId)
+     */
+    Coordinate getBaseGuavaCoordinate();
 
-  /**
-   * @return The Guava {@link Coordinate} to use
-   */
-  Coordinate getGuavaCoordinateToUse();
+    /**
+     * @return The Guava {@link Coordinate} to use
+     */
+    Coordinate getGuavaCoordinateToUse();
 
-  /**
-   * @param guavaVersion select the Guava version to use
-   */
-  void setSelectedGuavaVersion(String guavaVersion);
+    /**
+     * @param guavaVersion select the Guava version to use
+     */
+    void setSelectedGuavaVersion(String guavaVersion);
 }

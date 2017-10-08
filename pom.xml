@@ -7,7 +7,7 @@
 
   <properties>
     <version.furnace>2.26.2.Final</version.furnace>
-    <guava.version>23.0</guava.version>
+    <guava.version>20.0</guava.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

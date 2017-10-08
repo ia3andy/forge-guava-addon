@@ -37,3 +37,4 @@ It will generate checkNotNull preconditions on constructor/methods params for th
 
 * The 'Add checkNotNull' command generate checkNotNull preconditions before super() call in constructor.
 * The 'Add checkNotNull' command only process public methods.
+* The 'Add checkNotNull' reformat the class weirdly.
